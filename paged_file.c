@@ -364,7 +364,8 @@ paged_file_getline (PagedFile *f, char **line, int *line_len)
       (*line)[pos] = 0;
       break;
     } else if ((*line)[pos] == '\n') {
-      (*line)[pos + 1] = 0;
+      pos++;
+      (*line)[pos] = 0;
       break;
     }
     pos++;

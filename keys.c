@@ -42,7 +42,7 @@ keys_load (int *num_keys)
   if (keys_conf_path)
     keys = keys_load_from_file (keys_conf_path, num_keys);
   else
-    keys = keys_load_from_file (DEFAULT_KEYS_CONF_PATH, num_keys);
+    keys = keys_load_from_file(DEFAULT_KEYS_CONF_PATH, num_keys);
 
   if (keys == NULL) {
     char buffer[1024];
@@ -68,6 +68,7 @@ keys_load (int *num_keys)
 Key *
 keys_load_from_file (const char *filename, int *num_keys)
 {
+  fprintf(stdout, "Loading keys from %s...\n", filename);
   PagedFile fd = {0};
   Key *keys = NULL;
   Key *current_key = NULL;
@@ -82,6 +83,8 @@ keys_load_from_file (const char *filename, int *num_keys)
 
   *num_keys = 0;
   while (paged_file_getline (&fd, &line, &line_len) != -1) {
+    //fprintf(stdout, "%s\n", line);
+
     int len = strlen (line);
 
     if (len > 1024)
@@ -156,12 +159,16 @@ keys_find_by_name (Key *keys, int num_keys, const char *name)
 Key *
 keys_find_by_revision (Key *keys, int num_keys, const char *type, u32 revision)
 {
+  fprintf(stdout, "Looking for key %s %d...\n", type, revision);
   int i;
 
   for (i = 0; i < num_keys; i++) {
-    if (strcmp (keys[i].type, type) == 0 &&
-        keys[i].revision == revision)
-      return &keys[i];
+    if (strcmp (keys[i].type, type) == 0)
+    {
+      fprintf(stdout, "Found key of type %s %d\n", type, keys[i].revision);
+      if (keys[i].revision == revision)
+        return &keys[i];
+    }
   }
   return NULL;
 }
