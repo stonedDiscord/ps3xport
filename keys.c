@@ -159,13 +159,13 @@ keys_find_by_name (Key *keys, int num_keys, const char *name)
 Key *
 keys_find_by_revision (Key *keys, int num_keys, const char *type, u32 revision)
 {
-  fprintf(stdout, "Looking for key %s %d...\n", type, revision);
+//  fprintf(stdout, "Looking for key %s %d...\n", type, revision);
   int i;
 
   for (i = 0; i < num_keys; i++) {
     if (strcmp (keys[i].type, type) == 0)
     {
-      fprintf(stdout, "Found key of type %s %d\n", type, keys[i].revision);
+//      fprintf(stdout, "Found key of type %s %d\n", type, keys[i].revision);
       if (keys[i].revision == revision)
         return &keys[i];
     }
