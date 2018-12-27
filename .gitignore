@@ -167,3 +167,6 @@ install-sh
 ltmain.sh
 missing
 stamp-h1
+
+.vscode/
+/compile
