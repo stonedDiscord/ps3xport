@@ -24,12 +24,19 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
     - uses: actions/checkout@v4
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: autotools
     - name: configure
-      run: C:\msys64\usr\bin\bash.exe ./autogen.sh
+      run: ./autogen.sh
     - name: make
-      run: C:\msys64\usr\bin\make.exe
+      run: make
     - name: artifact
       uses: actions/upload-artifact@v4
       with:
