@@ -19,7 +19,7 @@ jobs:
     - name: artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Linux
+        name: ps3xport-linux
         path: ./ps3xport
 
   build-windows:
@@ -39,5 +39,5 @@ jobs:
     - name: artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Windows
+        name: ps3xport-windows
         path: ./ps3xport.exe
