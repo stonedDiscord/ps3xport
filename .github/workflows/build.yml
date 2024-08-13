@@ -15,10 +15,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: configure
       run: |
-        aclocal
-        automake --add-missing
-        ./configure
+        ./autogen.sh
     - name: make
       run: make
     - name: artifact
       uses: actions/upload-artifact@v4
+      with:
+        path: ./ps3xport
