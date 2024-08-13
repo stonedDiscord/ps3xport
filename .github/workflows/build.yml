@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: configure
       run: |
-        autoreconf --add-missing
+        automake
         ./configure
     - name: make
       run: make
