@@ -7,10 +7,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  build-linux:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: configure
@@ -21,4 +19,20 @@ jobs:
     - name: artifact
       uses: actions/upload-artifact@v4
       with:
+        name: Linux
         path: ./ps3xport
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: |
+        ./autogen.sh
+    - name: make
+      run: make
+    - name: artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows
+        path: ./ps3xport.exe
