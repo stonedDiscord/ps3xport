@@ -93,15 +93,17 @@ sc_encrypt (u32 type, u8 *laid_paid, u8 *iv, u8 *in, u32 in_size, u8 *out)
   u8 key[16];
   int i;
 
-  if (type > 5)
-    die ("sc_encrypt: Invalid key type\n");
+  if (type < 2 || type > 5)
+    die ("sc_encrypt: Invalid key type %d\n", type);
 
   if (keys == NULL) {
     keys = keys_load (&num_keys);
     if (keys == NULL)
       die ("Unable to load necessary keys from\n");
+    fprintf(stdout, "Loaded %d keys\n", num_keys);
   }
 
+  fprintf(stdout, "Looking for key of type %s %d\n", KEY_TYPE_SC, type);
   sc_key = keys_find_by_revision (keys, num_keys, KEY_TYPE_SC, type);
   if (sc_key == NULL)
       die ("sc_encrypt: Unknown key\n");
@@ -183,18 +185,19 @@ sc_decrypt (u32 type, u8 *laid_paid, u8 *iv, u8 *in, u32 in_size, u8 *out)
   u8 key[16];
   int i;
 
-  if (type > 5)
-    die ("sc_encrypt: Invalid key type\n");
+  if (type < 2 || type > 5)
+    die("sc_decrypt: Invalid key type %d\n", type);
 
   if (keys == NULL) {
     keys = keys_load (&num_keys);
     if (keys == NULL)
       die ("Unable to load necessary keys from\n");
+    fprintf(stdout, "Loaded %d keys\n", num_keys);
   }
 
   sc_key = keys_find_by_revision (keys, num_keys, KEY_TYPE_SC, type);
   if (sc_key == NULL)
-      die ("sc_encrypt: Unknown key\n");
+      die ("sc_decrypt: Unknown key\n");
 
   memcpy (key, sc_key->key, 16);
   for (i = 0; i < 16; i++)
